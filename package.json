@@ -13,8 +13,7 @@
     },
     "exports": "./dist/index.js",
     "files": [
-        "dist/index.js",
-        "dist/index.d.ts"
+        "dist"
     ],
     "types": "dist/index.d.ts",
     "keywords": [
