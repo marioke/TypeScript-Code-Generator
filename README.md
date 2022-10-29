@@ -1,6 +1,7 @@
 # TypeScript Code Generator
 
-![Build](https://github.com/marioke/TypeScript-Code-Generator/actions/workflows/node.js.yml/badge.svg)
+![build](https://github.com/marioke/TypeScript-Code-Generator/actions/workflows/node.js.yml/badge.svg)
+[![release](https://img.shields.io/github/release/marioke/TypeScript-Code-Generator.svg)](https://gitHub.com/marioke/TypeScript-Code-Generator/releases/)
 
 ## Example usage
 
