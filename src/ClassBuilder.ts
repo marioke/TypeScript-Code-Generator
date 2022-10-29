@@ -91,10 +91,12 @@ export class ClassBuilder extends BuilderBase {
 
     builder.append(`${this.getClassBase()} {`).addNewline();
 
-    this.properties.forEach((property) => {
-      builder.appendLines(property.toArray(), 1);
-    });
-    builder.addNewline();
+    if (this.properties.length > 0) {
+      this.properties.forEach((property) => {
+        builder.appendLines(property.toArray(), 1);
+      });
+      builder.addNewline();
+    }
 
     this.constructors.forEach((constructor) => {
       builder.appendLines(constructor.toArray()).addNewline();
