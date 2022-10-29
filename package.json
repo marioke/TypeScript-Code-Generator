@@ -11,8 +11,10 @@
     "publishConfig": {
         "access": "public"
     },
+    "exports": "./dist/index.js",
     "files": [
-        "dist"
+        "dist/index.js",
+        "dist/index.d.ts"
     ],
     "types": "dist/index.d.ts",
     "keywords": [
