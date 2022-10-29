@@ -8,18 +8,29 @@
 const doc = new CodeDocument()
     .addHeadComment("Example file")
     .addHeadComment("This is completely auto generated")
-    .addClass(
-    new ClassBuilder("ExampleClass").addMethod(
-        new MethodBuilder("hello")
-        .addDescriptionLine("This is a method")
-        .addParameter({
+    .addInterface(
+        new InterfaceBuilder("HelloWorldOptions").addProperty({
             name: "name",
             type: "string",
-            comment: "The name of the person to greet",
         })
-        .addLine("console.log('hello ' + name);")
     )
-);
+    .addClass(
+        new ClassBuilder("ExampleClass").addMethod(
+            new MethodBuilder("hello")
+                .addDescriptionLine("This is a method")
+                .addParameter({
+                    name: "options",
+                    type: "HelloWorldOptions",
+                    comment: "Options for the hello method",
+                })
+                .addLines([
+                    "if(!options.name) {",
+                    "throw new Error(`YIKES! It looks like you're unknown`);",
+                    "}",
+                    "console.log('Hello ' + options.name);",
+                ])
+        )
+    );
 
 console.log(doc.toString())
 ```
@@ -30,17 +41,23 @@ console.log(doc.toString())
 // Example file
 // This is completely auto generated
 
-class ExampleClass {
+interface HelloWorldOptions {
+  name: string;
+}
 
+class ExampleClass {
   /**
    * This is a method
-   * @param name The name of the person to greet
+   * @param options Options for the hello method
    */
-  public hello(name: string): void {
-    console.log('hello ' + name);
+  public hello(options: HelloWorldOptions): void {
+    if (!options.name) {
+      throw new Error(`YIKES! It looks like you're unknown`);
+    }
+    console.log("Hello " + options.name);
   }
-
 }
+
 ```
 
 ## Get started
