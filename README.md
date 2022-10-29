@@ -42,3 +42,9 @@ class ExampleClass {
 
 }
 ```
+
+## Get started
+
+```Bash
+npm i typescript-code-generator
+```
