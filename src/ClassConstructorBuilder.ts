@@ -73,6 +73,7 @@ export class ClassConstructorBuilder extends BuilderBase {
     this.lines.forEach((line) => {
       builder.append(`${this.getIndent(1)}${line}`);
     });
+    builder.append("}");
     return builder.toArray();
   }
 
