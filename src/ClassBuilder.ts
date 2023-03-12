@@ -9,7 +9,7 @@ export class ClassBuilder extends BuilderBase {
   private readonly name: string;
   private methods: Array<MethodBuilder> = [];
   private properties: Array<ClassPropertyBuilder> = [];
-  private constructors: Array<ClassConstructorBuilder> = [];
+  private cts?: ClassConstructorBuilder
   private export?: boolean;
   private exportDefault?: boolean;
   private extends?: string;
@@ -46,8 +46,8 @@ export class ClassBuilder extends BuilderBase {
     return this;
   }
 
-  public addConstructor(constructor: ClassConstructorBuilder): this {
-    this.constructors.push(constructor);
+  public setConstructor(constructor: ClassConstructorBuilder): this {
+    this.cts = constructor;
     return this;
   }
 
@@ -98,9 +98,9 @@ export class ClassBuilder extends BuilderBase {
       builder.addNewline();
     }
 
-    this.constructors.forEach((constructor) => {
-      builder.appendLines(constructor.toArray()).addNewline();
-    });
+    if (this.cts) {
+      builder.appendLines(this.cts.toArray()).addNewline();
+    }
 
     this.methods.forEach((method) => {
       builder.appendLines(method.toArray(), 1).addNewline();
