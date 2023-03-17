@@ -21,7 +21,15 @@ export class CodeDocument {
     if (this.imports.find((i) => i.name === importObj.name)) {
       throw new Error(`Import with name ${importObj.name} already exists`);
     }
+
     this.imports.push(importObj);
+    return this;
+  }
+
+  public addImports(importObjs: Array<Import>): this {
+    importObjs.forEach((importObj) => {
+      this.addImport(importObj);
+    });
     return this;
   }
 
@@ -52,6 +60,10 @@ export class CodeDocument {
 
     if (this.imports.length > 0) {
       this.imports.forEach((importObj) => {
+        if (importObj.type === 'named') {
+          builder.append(`import { ${importObj.name} } from "${importObj.path}";`);
+          return;
+        }
         builder.append(`import ${importObj.name} from "${importObj.path}";`);
       });
       builder.addNewline();
@@ -72,4 +84,5 @@ export class CodeDocument {
 interface Import {
   name: string;
   path: string;
+  type?: 'default' | 'named'; 
 }
