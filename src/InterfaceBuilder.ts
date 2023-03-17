@@ -91,6 +91,10 @@ export class InterfaceBuilder extends BuilderBase {
         builder.append(`${this.getIndent(1)} * ${property.comment}`);
         builder.append(`${this.getIndent(1)} */`);
       }
+      if (property.nullable) {
+        builder.append(`${this.getIndent(1)}${property.name}?: ${property.type};`);
+        return;
+      }
       builder.append(`${this.getIndent(1)}${property.name}: ${property.type};`);
     });
     builder.append("}");
@@ -102,4 +106,5 @@ export interface InterfaceProperty {
   name: string;
   type: string;
   comment?: string;
+  nullable?: boolean;
 }
