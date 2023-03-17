@@ -1,10 +1,14 @@
+import { AliasTypeBuilder } from "./AliasTypeBuilder";
 import { ClassBuilder } from "./ClassBuilder";
 import { InterfaceBuilder } from "./InterfaceBuilder";
 import { StringBuilder } from "./StringBuilder";
+import { TypeBuilder } from "./TypeBuilder";
 
 export class CodeDocument {
   private classes = new Array<ClassBuilder>();
   private interfaces = new Array<InterfaceBuilder>();
+  private types = new Array<TypeBuilder>();
+  private aliasTypes = new Array<AliasTypeBuilder>();
   private headComments: Array<string> = [];
   private imports = new Array<Import>();
 
@@ -48,6 +52,16 @@ export class CodeDocument {
     return this;
   }
 
+  public addType(type: TypeBuilder): this {
+    this.types.push(type);
+    return this;
+  }
+
+  public addAliasType(type: AliasTypeBuilder): this {
+    this.aliasTypes.push(type);
+    return this;
+  }
+
   public toString(): string {
     const builder = new StringBuilder();
 
@@ -67,6 +81,18 @@ export class CodeDocument {
         builder.append(`import ${importObj.name} from "${importObj.path}";`);
       });
       builder.addNewline();
+    }
+
+    if (this.aliasTypes.length > 0) {
+      this.aliasTypes.forEach((type) => {
+        builder.appendLines(type.toArray()).addNewline();
+      });
+    }
+    
+    if (this.types.length > 0) {
+      this.types.forEach((type) => {
+        builder.appendLines(type.toArray()).addNewline();
+      });
     }
 
     this.interfaces.forEach((interfaceObj) => {
