@@ -8,3 +8,4 @@ export * from "./InterfaceBuilder";
 export * from "./MethodBuilder";
 export * from "./StringBuilder";
 export * from "./TypeBuilder";
+export * from "./AliasTypeBuilder";
