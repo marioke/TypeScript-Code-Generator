@@ -40,7 +40,6 @@ export class AliasTypeBuilder extends BuilderBase {
 
             });
             builder.append(" */");
-            builder.addNewline();
         }
 
         const parts = [];
