@@ -77,7 +77,7 @@ export class InterfaceBuilder extends BuilderBase {
     parts.push(this.name);
 
     if (this.implements) {
-      parts.push("implements");
+      parts.push("extends");
       parts.push(this.implements);
     }
 
