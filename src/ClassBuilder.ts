@@ -99,7 +99,7 @@ export class ClassBuilder extends BuilderBase {
     }
 
     if (this.cts) {
-      builder.appendLines(this.cts.toArray()).addNewline();
+      builder.appendLines(this.cts.toArray(), 1).addNewline();
     }
 
     this.methods.forEach((method) => {
