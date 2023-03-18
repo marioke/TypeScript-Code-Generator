@@ -5,11 +5,12 @@ export class AliasTypeBuilder extends BuilderBase {
     private readonly name: string;
     private readonly type: string;
     private export?: boolean;
+    private descriptionLines: Array<string> = [];
 
     public constructor(name: string, type: string) {
         super();
         if (!this.isValidObjectName(name)) {
-        throw new Error(`Invalid name for type: ${name}`);
+            throw new Error(`Invalid name for type: ${name}`);
         }
         this.name = name;
         this.type = type;
@@ -24,8 +25,24 @@ export class AliasTypeBuilder extends BuilderBase {
         return this;
     }
 
+    public addDescriptionLine(line: string): this {
+        this.descriptionLines.push(line);
+        return this;
+    }
+
     public toArray(): Array<string> {
         const builder = new StringBuilder();
+
+        if (this.descriptionLines.length > 0) {
+            builder.append("/**");
+            this.descriptionLines.forEach((line) => {
+                builder.append(` * ${line}`);
+
+            });
+            builder.append(" */");
+            builder.addNewline();
+        }
+
         const parts = [];
         if (this.export) {
             parts.push("export");
