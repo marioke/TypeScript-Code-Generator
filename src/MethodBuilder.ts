@@ -8,6 +8,7 @@ export class MethodBuilder extends BuilderBase {
   private async: boolean = false;
   private static: boolean = false;
   private descriptionLines: Array<string> = [];
+  private generic?: string;
 
   private parameters: Array<MethodParameter> = [];
   private lines: Array<string> = [];
@@ -27,6 +28,11 @@ export class MethodBuilder extends BuilderBase {
 
   public setPublic(): this {
     this.visibility = "public";
+    return this;
+  }
+
+  public setGeneric(type: string): this {
+    this.generic = type;
     return this;
   }
 
@@ -80,7 +86,11 @@ export class MethodBuilder extends BuilderBase {
     }
 
     parts.push(this.name);
-    const base = parts.join(" ");
+    let base = parts.join(" ");
+
+    if(this.generic) {
+      base = `${base}${this.generic}`;
+    }
 
     const returnType = this.async
       ? `Promise<${this.returnType}>`
